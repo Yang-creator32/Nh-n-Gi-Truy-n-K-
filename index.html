@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhẫn Giả Truyền Kỳ</title>
+    <title>Hỏa Chí Vô Song</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Teko:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
         .game-layer { position: fixed; inset: 0; z-index: 100; display: none !important; pointer-events: none; }
         .active-layer { display: flex !important; pointer-events: auto; }
 
-        /* Giao diện hiển thị số lượt đấu */
         #turn-counter-display {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             z-index: 200; pointer-events: none; display: none;
@@ -37,7 +36,6 @@
         .menu-content { text-align: center; animation: menuEntry 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         @keyframes menuEntry { 0% { opacity: 0; transform: scale(0.9); filter: blur(10px); } 100% { opacity: 1; transform: scale(1); filter: blur(0); } }
         
-        /* BẢNG HIỆU GAME */
         .game-title { font-family: 'Bangers', cursive; font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 0; background: linear-gradient(to bottom, #fff 30%, #ff9900 60%, #ff4400 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(255, 153, 0, 0.4)); letter-spacing: -1px; font-style: italic; }
         .game-subtitle { font-family: 'Teko', sans-serif; font-size: 1.2rem; color: #ff9900; letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.5rem; margin-bottom: 4rem; text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); }
         
@@ -51,25 +49,25 @@
         .hero-info-card:hover { border-color: #ff9900; transform: translateY(-5px); }
         .lv-badge { position: absolute; top: 5px; right: 8px; font-size: 12px; color: #ff9900; font-family: 'Teko'; font-weight: bold; z-index: 10; }
 
-        /* CHI TIẾT NHÂN VẬT */
         #hero-details { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .details-container { background: #0c0c0c; border: 2px solid #333; border-radius: 20px; width: 100%; max-width: 500px; position: relative; box-shadow: 0 0 60px rgba(0, 0, 0, 0.8); overflow: hidden; display: flex; flex-direction: column; }
-        .details-header-bg { background: linear-gradient(180deg, #1a1a1a 0%, #0c0c0c 100%); padding: 30px 20px; text-align: center; border-bottom: 1px solid #222; }
-        .details-body { padding: 20px; flex: 1; overflow-y: auto; max-height: 60vh; }
+        .details-container { background: #0c0c0c; border: 2px solid #333; border-radius: 20px; width: 100%; max-width: 500px; position: relative; box-shadow: 0 0 60px rgba(0, 0, 0, 0.8); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; }
+        .details-header-bg { background: linear-gradient(180deg, #1a1a1a 0%, #0c0c0c 100%); padding: 15px 20px; text-align: center; border-bottom: 1px solid #222; position: relative; }
+        .details-body { padding: 15px; flex: 1; overflow-y: auto; }
         
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 25px; }
-        .stat-row { background: #151515; border: 1px solid #222; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; }
-        .stat-label { font-family: 'Teko'; color: #666; text-transform: uppercase; font-size: 14px; }
-        .stat-value { font-family: 'Oswald'; color: #ff9900; font-size: 18px; }
+        /* ĐIỀU CHỈNH GỌN BẢNG CHỈ SỐ */
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 15px; }
+        .stat-row { background: #151515; border: 1px solid #222; border-radius: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4px 2px; }
+        .stat-label { font-family: 'Teko'; color: #666; text-transform: uppercase; font-size: 11px; line-height: 1; margin-bottom: 2px; }
+        .stat-value { font-family: 'Oswald'; color: #ff9900; font-size: 14px; line-height: 1; }
 
-        .skill-section-title { font-family: 'Teko'; font-size: 18px; color: #ff9900; text-transform: uppercase; margin-bottom: 15px; border-left: 4px solid #ff9900; padding-left: 10px; letter-spacing: 1px; }
-        .skill-item { display: flex; gap: 15px; background: #111; border: 1px solid #222; border-radius: 12px; padding: 12px; margin-bottom: 10px; transition: 0.2s; }
+        .skill-section-title { font-family: 'Teko'; font-size: 16px; color: #ff9900; text-transform: uppercase; margin-bottom: 10px; border-left: 3px solid #ff9900; padding-left: 8px; letter-spacing: 1px; }
+        .skill-item { display: flex; gap: 10px; background: #111; border: 1px solid #222; border-radius: 8px; padding: 8px; margin-bottom: 8px; transition: 0.2s; }
         .skill-item:hover { border-color: #444; background: #151515; }
-        .skill-icon { width: 50px; height: 50px; border-radius: 8px; border: 1px solid #ff9900; flex-shrink: 0; overflow: hidden; background: #000; }
+        .skill-icon { width: 40px; height: 40px; border-radius: 6px; border: 1px solid #ff9900; flex-shrink: 0; overflow: hidden; background: #000; }
         .skill-info { flex: 1; }
-        .skill-name { font-family: 'Teko'; font-size: 16px; color: #fff; text-transform: uppercase; margin-bottom: 2px; }
-        .skill-desc { font-size: 11px; color: #888; line-height: 1.3; font-family: sans-serif; }
+        .skill-name { font-family: 'Teko'; font-size: 14px; color: #fff; text-transform: uppercase; margin-bottom: 1px; }
+        .skill-desc { font-size: 10px; color: #777; line-height: 1.2; font-family: sans-serif; }
 
         #tactical-screen { background: radial-gradient(circle at center, rgba(30,30,50,0.9) 0%, rgba(10,10,15,0.98) 100%); backdrop-filter: blur(12px); flex-direction: column; }
         .formation-container { display: flex; flex-direction: column; gap: 12px; padding: 15px; background: rgba(0,242,255,0.06); border: 1px solid rgba(0,242,255,0.2); border-radius: 12px; }
@@ -97,15 +95,12 @@
         .unit-card { min-width: 60px; height: 80px; background: linear-gradient(180deg, #252525 0%, #111 100%); border: 1px solid #444; border-radius: 6px; cursor: pointer; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.2s ease; overflow: hidden; }
         .unit-card:hover { border-color: #888; background: #333; }
         .unit-card.selected { border-color: #ffaa00; background: rgba(255,170,0,0.15); box-shadow: 0 0 12px rgba(255,170,0,0.4); }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
 
 <div id="flash"></div>
 
-<!-- HIỂN THỊ LƯỢT ĐẤU -->
 <div id="turn-counter-display">
     <span class="turn-label">Lượt Đấu</span>
     <span id="turn-number">1</span>
@@ -117,10 +112,10 @@
     </div>
 </div>
 
-<!-- TRANG CHỦ -->
+<!-- MAIN HOME -->
 <div id="main-home" class="game-layer active-layer flex">
     <div class="menu-content">
-        <h1 class="game-title">NHẪN GIẢ TRUYỀN KỲ</h1>
+        <h1 class="game-title">HỎA CHÍ VÔ SONG</h1>
         <div class="game-subtitle">LEGEND BATTLE</div>
         <div class="flex flex-col gap-4 items-center">
             <div class="btn-fancy w-48 h-14 text-2xl shadow-xl" onclick="changeState('tactical')">BẮT ĐẦU</div>
@@ -129,25 +124,28 @@
     </div>
 </div>
 
-<!-- BỘ SƯU TẬP NHÂN VẬT -->
+<!-- HERO GALLERY -->
 <div id="hero-gallery" class="game-layer items-center justify-center">
     <div class="absolute top-4 right-4 text-orange-400 font-bold font-['Teko'] text-xl">BẠC: <span id="player-silver">5000</span></div>
     <h2 class="text-4xl font-bold text-orange-500 mb-8 tracking-widest font-['Teko'] uppercase">Nhẫn Giả Huyền Thoại</h2>
-    <div id="gallery-container" class="gallery-grid scrollbar-hide"></div>
+    <div id="gallery-container" class="gallery-grid"></div>
     <div class="mt-8 btn-fancy w-40 h-12 text-xl" onclick="changeState('home')">QUAY LẠI</div>
 </div>
 
-<!-- CHI TIẾT NHÂN VẬT -->
+<!-- HERO DETAILS -->
 <div id="hero-details">
     <div class="details-container">
         <div class="details-header-bg">
-            <div id="detail-icon" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-orange-500 overflow-hidden flex items-center justify-center bg-black"></div>
-            <h2 id="detail-name" class="text-4xl font-bold font-['Teko'] uppercase tracking-wider text-white">Tên</h2>
-            <div id="detail-lv-text" class="text-orange-500 font-bold text-xl mb-1">CẤP 1</div>
-            <p id="detail-info" class="text-white/40 text-[10px] font-bold tracking-[0.2em] uppercase"></p>
+            <div id="detail-icon" class="w-16 h-16 rounded-full mx-auto mb-2 border-4 border-orange-500 overflow-hidden flex items-center justify-center bg-black"></div>
+            <h2 id="detail-name" class="text-3xl font-bold font-['Teko'] uppercase tracking-wider text-white">Tên</h2>
+            <div class="flex justify-center items-center gap-2">
+                <div id="detail-lv-text" class="text-orange-500 font-bold text-lg">CẤP 1</div>
+                <p id="detail-info" class="text-white/40 text-[9px] font-bold tracking-[0.1em] uppercase"></p>
+            </div>
         </div>
 
-        <div class="details-body scrollbar-hide">
+        <div class="details-body">
+            <!-- BẢNG CHỈ SỐ GỌN 1 HÀNG -->
             <div class="stat-grid">
                 <div class="stat-row"><span class="stat-label">HP</span><span id="stat-hp" class="stat-value">0</span></div>
                 <div class="stat-row"><span class="stat-label">CÔNG</span><span id="stat-atk" class="stat-value">0</span></div>
@@ -156,20 +154,20 @@
             </div>
 
             <div class="skill-section-title">Nhẫn Thuật Kỹ Năng</div>
-            <div id="skill-list" class="space-y-3"></div>
+            <div id="skill-list" class="space-y-2"></div>
         </div>
 
-        <div class="p-5 border-t border-white/5 bg-black flex gap-4 justify-center">
-            <div class="btn-fancy flex-1 h-12 flex flex-col" onclick="upgradeHero()">
-                <span class="text-lg leading-none">NÂNG CẤP</span>
-                <span id="upgrade-cost" class="text-[10px] opacity-80">0 BẠC</span>
+        <div class="p-4 border-t border-white/5 bg-black flex gap-3 justify-center">
+            <div class="btn-fancy flex-1 h-10 flex flex-col" onclick="upgradeHero()">
+                <span class="text-md leading-none">NÂNG CẤP</span>
+                <span id="upgrade-cost" class="text-[9px] opacity-80">0 BẠC</span>
             </div>
-            <div class="btn-fancy flex-1 h-12 text-lg" onclick="closeDetails()">ĐÓNG</div>
+            <div class="btn-fancy flex-1 h-10 text-md" onclick="closeDetails()">ĐÓNG</div>
         </div>
     </div>
 </div>
 
-<!-- CHIẾN THUẬT -->
+<!-- TACTICAL SCREEN -->
 <div id="tactical-screen" class="game-layer py-4 px-4 flex flex-col items-center">
     <div class="absolute top-4 left-4"><div class="btn-fancy w-24 h-8 text-[12px]" onclick="changeState('home')">QUAY LẠI</div></div>
     <div class="w-full max-w-xs flex-1 flex flex-col items-center">
@@ -196,10 +194,10 @@
         </div>
         <div class="mt-6 mb-4 w-full flex justify-center"><div class="btn-fancy w-40 h-10 text-md tracking-widest" onclick="triggerBattleStart()">XUẤT QUÂN</div></div>
     </div>
-    <div class="w-full mt-auto"><div id="unit-pool-container" class="w-full bg-white/5 backdrop-blur-sm p-2 border-t border-white/20 overflow-x-auto flex gap-2 scrollbar-hide"></div></div>
+    <div class="w-full mt-auto"><div id="unit-pool-container" class="w-full bg-white/5 backdrop-blur-sm p-2 border-t border-white/20 overflow-x-auto flex gap-2"></div></div>
 </div>
 
-<!-- GIAO DIỆN CHIẾN ĐẤU -->
+<!-- BATTLE UI -->
 <div id="battle-ui" class="game-layer">
     <div id="battle-layer" class="relative w-full h-full"></div>
     <div class="absolute top-5 left-5 btn-fancy w-20 h-7 text-[10px]" onclick="stopBattleAndReturn()">RÚT LUI</div>
@@ -218,6 +216,37 @@
     let selectedHeroInDetails = null;
     let selectedHeroId = null;
     let currentFormation = [{ slot: 4, unitId: 'it1' }];
+
+    // --- HỆ THỐNG ÂM THANH ---
+    const sounds = {
+        bgm: new Audio('https://codesandbox.io/api/v1/sandboxes/8f8v9v/files/assets/naruto_theme.mp3'),
+        chidori: new Audio('chidori_sound.mp3') 
+    };
+
+    sounds.bgm.loop = true;
+    sounds.bgm.volume = 0.3;
+    sounds.chidori.volume = 0.9;
+
+    let isAudioInitialized = false;
+
+    // Hàm khởi tạo âm thanh khi người dùng tương tác (nhấn nút Xuất Quân)
+    function initializeAudio() {
+        if (!isAudioInitialized) {
+            // Chơi BGM
+            sounds.bgm.play().catch(e => console.log("BGM Play Error:", e));
+            // Load trước hiệu ứng
+            sounds.chidori.load();
+            isAudioInitialized = true;
+        }
+    }
+
+    function playSound(name) {
+        if(sounds[name]) {
+            sounds[name].pause();
+            sounds[name].currentTime = 0;
+            sounds[name].play().catch(e => console.log(`Sound Play Error (${name}):`, e));
+        }
+    }
 
     const allHeroData = [
         { 
@@ -254,7 +283,7 @@
             id: 'it1', name: 'Itachi', skill: 'AMATERASU', color: 0xff4444, hp: 1600, atk: 300, def: 160, spd: 110, lv: 1, skillColor: 0x000000, info: 'Bậc thầy ảo thuật', 
             avatar: 'https://anhdep.edu.vn/upload/2024/08/bo-suu-tap-anh-itachi-uchiha-dep-nhat-chat-luong-cao-4k-31.webp',
             skills: [
-                { name: 'Ảo thuật: Mắt quạ', desc: 'Đưa đối thủ vào không gian ảo giác đầy những đàn quạ.', icon: 'https://i.pinimg.com/236x/a1/a1/a1/a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1.jpg' },
+                { name: 'Hỏa Độn: Hào Hỏa Cầu', desc: 'Tạo ra quả cầu lửa khổng lồ thiêu cháy mọi thứ.', icon: 'https://i.pinimg.com/236x/5c/15/45/5c154562575440626305606456204060.jpg' },
                 { name: 'Amaterasu', desc: 'Ngọn lửa đen vĩnh cửu không thể bị dập tắt.', icon: 'https://i.pinimg.com/236x/b2/b2/b2/b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2.jpg' },
                 { name: 'Tsukuyomi', desc: 'Giam cầm tinh thần kẻ địch trong 72 giờ tra tấn ảo ảnh.', icon: 'https://i.pinimg.com/236x/c3/c3/c3/c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3.jpg' },
                 { name: 'Izanami', desc: 'Cấm thuật nhãn thuật đưa kẻ địch vào vòng lặp thời gian vô tận.', icon: 'https://i.pinimg.com/236x/d4/d4/d4/d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4d4.jpg' }
@@ -373,7 +402,9 @@
         }
     }
 
-    function closeDetails() { document.getElementById('hero-details').style.display = 'none'; }
+    function closeDetails() { 
+        document.getElementById('hero-details').style.display = 'none'; 
+    }
 
     function renderTacticalUI() {
         const pool = document.getElementById('unit-pool-container');
@@ -412,6 +443,10 @@
 
     function triggerBattleStart() {
         if(currentFormation.length === 0) return;
+        
+        // Kích hoạt âm thanh khi người dùng nhấn nút này
+        initializeAudio();
+
         changeState('battle');
         const flash = document.getElementById('flash');
         flash.style.opacity = '1';
@@ -524,8 +559,18 @@
                     }
                 } else { target = units.find(t => t.enemy && t.cur > 0); }
                 if(!target) break;
-                if(u.mp >= 100) { await performUltimate(u, target); u.mp = 0; }
-                else { await performAttack(u, target); u.mp = Math.min(100, u.mp + 34); }
+
+                if (battleTurnCount === 1 && !u.enemy) {
+                    await performSpecialAttack(u, target);
+                    u.mp = 100;
+                } else if (u.mp >= 100) {
+                    await performUltimate(u, target);
+                    u.mp = 0;
+                } else {
+                    await performAttack(u, target);
+                    u.mp = Math.min(100, u.mp + 50);
+                }
+
                 await new Promise(r => setTimeout(r, 600));
                 if(units.filter(u => !u.enemy && u.cur > 0).length === 0 || units.filter(u => u.enemy && u.cur > 0).length === 0) { isCombatActive = false; break; }
             }
@@ -543,6 +588,105 @@
         await tween(u.group.position, start, 200, "easeOut");
     }
 
+    async function performSpecialAttack(u, target) {
+        if (u.name === 'Naruto') {
+            await performNarutoSpecial(u, target);
+        } else if (u.name === 'Itachi') {
+            await performItachiFireball(u, target);
+        } else {
+            let skillMesh;
+            if(u.skill === 'CHIDORI' || u.skill === 'LÔI THIẾT') {
+                skillMesh = createChidoriMesh();
+                playSound('chidori'); 
+            } else {
+                skillMesh = new THREE.Mesh(new THREE.SphereGeometry(15), new THREE.MeshBasicMaterial({color: u.skillColor}));
+            }
+            
+            if(u.group.userData.rightShoulder) { tweenRotation(u.group.userData.rightShoulder, { z: -Math.PI / 2, x: 0 }, 200, "easeIn"); }
+            skillMesh.position.copy(u.group.position).add(new THREE.Vector3(30, 30, 0));
+            scene.add(skillMesh); skillMeshes.push(skillMesh);
+            
+            const startPos = u.group.position.clone();
+            const targetPos = target.group.position.clone().add(new THREE.Vector3(u.enemy ? 100 : -100, 0, 0));
+            await tween(u.group.position, targetPos, 300, "easeIn");
+            const dmg = Math.floor((u.atk || 400) * 2.5);
+            target.cur = Math.max(0, target.cur - dmg);
+            showDamage(target, dmg, "#ffaa00");
+            createVFX(target.group.position, u.skillColor, 20, 'spark');
+            screenShake(8, 200);
+            scene.remove(skillMesh);
+            skillMeshes = skillMeshes.filter(m => m !== skillMesh);
+            if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: 0, x: 0 }, 200, "easeOut");
+            await tween(u.group.position, startPos, 300, "easeOut");
+        }
+    }
+
+    async function performNarutoSpecial(u, target) {
+        const startPos = u.group.position.clone();
+        const clones = [];
+        createVFX(u.group.position, 0xffffff, 30, 'smoke');
+        for(let i=0; i<2; i++) {
+            const clone = createChar('Naruto');
+            clone.position.copy(u.group.position).add(new THREE.Vector3(0, 0, (i === 0 ? 60 : -60)));
+            clone.rotation.y = Math.PI/2;
+            clone.scale.set(0.1, 0.1, 0.1); 
+            scene.add(clone);
+            clones.push(clone);
+            tweenScale(clone, new THREE.Vector3(1, 1, 1), 200);
+        }
+        await new Promise(r => setTimeout(r, 200));
+        const targetPosCenter = target.group.position.clone().add(new THREE.Vector3(-80, 0, 0));
+        const targetPosUp = target.group.position.clone().add(new THREE.Vector3(-80, 0, 60));
+        const targetPosDown = target.group.position.clone().add(new THREE.Vector3(-80, 0, -60));
+        const p1 = tween(u.group.position, targetPosCenter, 300, "easeIn");
+        const p2 = tween(clones[0].position, targetPosUp, 300, "easeIn");
+        const p3 = tween(clones[1].position, targetPosDown, 300, "easeIn");
+        await Promise.all([p1, p2, p3]);
+        const dmg = Math.floor((u.atk || 400) * 2.5);
+        target.cur = Math.max(0, target.cur - dmg);
+        showDamage(target, dmg, "#ffaa00");
+        createVFX(target.group.position, 0xffaa00, 30, 'spark');
+        screenShake(10, 300);
+        await new Promise(r => setTimeout(r, 300));
+        const b1 = tween(u.group.position, startPos, 300, "easeOut");
+        const b2 = tween(clones[0].position, startPos.clone().add(new THREE.Vector3(0, 0, 60)), 300, "easeOut");
+        const b3 = tween(clones[1].position, startPos.clone().add(new THREE.Vector3(0, 0, -60)), 300, "easeOut");
+        await Promise.all([b1, b2, b3]);
+        clones.forEach(clone => {
+            createVFX(clone.position, 0xffffff, 20, 'smoke');
+            scene.remove(clone);
+        });
+    }
+
+    async function performItachiFireball(u, target) {
+        if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: -Math.PI/4, x: 0.5 }, 200, "easeIn");
+        await new Promise(r => setTimeout(r, 300));
+
+        const fireball = new THREE.Group();
+        const core = new THREE.Mesh(new THREE.SphereGeometry(30, 32, 32), new THREE.MeshBasicMaterial({ color: 0xff4400 }));
+        const glow = new THREE.Mesh(new THREE.SphereGeometry(45, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffaa00, transparent: true, opacity: 0.4 }));
+        fireball.add(core); fireball.add(glow);
+        
+        fireball.position.copy(u.group.position).add(new THREE.Vector3(40, 40, 0));
+        fireball.scale.set(0.1, 0.1, 0.1);
+        scene.add(fireball); skillMeshes.push(fireball);
+
+        await tweenScale(fireball, new THREE.Vector3(1, 1, 1), 400, "easeOut");
+
+        const targetPos = target.group.position.clone();
+        await tween(fireball.position, targetPos, 500, "easeIn");
+
+        const dmg = Math.floor((u.atk || 400) * 2.5);
+        target.cur = Math.max(0, target.cur - dmg);
+        showDamage(target, dmg, "#ff5500");
+        createVFX(target.group.position, 0xff4400, 50, 'fire');
+        screenShake(12, 400);
+
+        scene.remove(fireball);
+        skillMeshes = skillMeshes.filter(m => m !== fireball);
+        if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: 0, x: 0 }, 200, "easeOut");
+    }
+
     async function performUltimate(u, target) {
         const cinematic = document.getElementById('skill-cinematic');
         const skillNameEl = document.getElementById('skill-name');
@@ -550,10 +694,16 @@
         cinematic.style.display = 'flex';
         setTimeout(() => cinematic.classList.add('active-cinematic'), 50);
         let skillMesh;
-        if(u.skill === 'RASENGAN') skillMesh = createAnimeRasengan();
-        else if(u.skill === 'CHIDORI' || u.skill === 'LÔI THIẾT') skillMesh = createChidoriMesh();
-        else if(u.skill === 'AMATERASU') skillMesh = createAmaterasuVFX(target.group.position);
-        else skillMesh = new THREE.Mesh(new THREE.SphereGeometry(30), new THREE.MeshBasicMaterial({color: u.skillColor}));
+        if(u.skill === 'RASENGAN') {
+            skillMesh = createAnimeRasengan();
+        } else if(u.skill === 'CHIDORI' || u.skill === 'LÔI THIẾT') {
+            skillMesh = createChidoriMesh();
+            playSound('chidori'); 
+        } else if(u.skill === 'AMATERASU') {
+            skillMesh = createAmaterasuVFX(target.group.position);
+        } else {
+            skillMesh = new THREE.Mesh(new THREE.SphereGeometry(30), new THREE.MeshBasicMaterial({color: u.skillColor}));
+        }
         if(u.skill !== 'AMATERASU' && u.group.userData.rightShoulder) { tweenRotation(u.group.userData.rightShoulder, { z: -Math.PI / 1.8, x: 0.2 }, 300, "elastic"); }
         if(u.skill !== 'AMATERASU') { skillMesh.position.copy(u.group.position).add(new THREE.Vector3(35, 30, 0)); scene.add(skillMesh); skillMeshes.push(skillMesh); }
         await new Promise(r => setTimeout(r, 1200));
@@ -631,9 +781,10 @@
 
     function createVFX(pos, color, count, type) {
         for(let i=0; i<count; i++) {
-            const m = new THREE.Mesh(new THREE.SphereGeometry(type === 'burn' ? 3 : 1.5, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1 }));
+            const m = new THREE.Mesh(new THREE.SphereGeometry(type === 'burn' || type === 'fire' ? 4 : 1.5, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1 }));
             m.position.copy(pos).add(new THREE.Vector3((Math.random()-0.5)*50, 20 + (Math.random()-0.5)*50, (Math.random()-0.5)*50));
-            m.userData = { vel: new THREE.Vector3((Math.random()-0.5)*20, (Math.random()-0.5)*20, (Math.random()-0.5)*20), life: 1.0 };
+            const force = type === 'fire' ? 30 : 20;
+            m.userData = { vel: new THREE.Vector3((Math.random()-0.5)*force, (Math.random()-0.5)*force, (Math.random()-0.5)*force), life: 1.0 };
             scene.add(m); particles.push(m);
         }
     }
@@ -677,11 +828,12 @@
         });
     }
 
-    function tweenScale(obj, target, ms) {
+    function tweenScale(obj, target, ms, type = "smooth") {
         return new Promise(res => {
             const start = obj.scale.clone(), startTime = Date.now();
             const loop = () => {
                 const elapsed = Date.now() - startTime; let p = Math.min(1, elapsed / ms);
+                if(type === "easeIn") p = p * p; if(type === "easeOut") p = 1 - Math.pow(1 - p, 3);
                 obj.scale.lerpVectors(start, target, p); if(p < 1 && isCombatActive) requestAnimationFrame(loop); else res();
             }; loop();
         });

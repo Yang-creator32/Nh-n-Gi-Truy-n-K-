@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huyền Thoại Nhẫn Giả - Skill System Update</title>
+    <title>Nhẫn Giả Truyền Kỳ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Teko:wght@400;500;700&family=Bangers&display=swap" rel="stylesheet">
@@ -36,8 +36,10 @@
         #main-home { background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(0,0,0,0.4) 100%); flex-direction: column; justify-content: center; align-items: center; }
         .menu-content { text-align: center; animation: menuEntry 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         @keyframes menuEntry { 0% { opacity: 0; transform: scale(0.9); filter: blur(10px); } 100% { opacity: 1; transform: scale(1); filter: blur(0); } }
-        .game-title { font-family: 'Bangers', cursive; font-size: clamp(4rem, 12vw, 7rem); line-height: 0.9; margin-bottom: 0; background: linear-gradient(to bottom, #fff 30%, #ff9900 60%, #ff4400 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(255, 153, 0, 0.4)); letter-spacing: -2px; font-style: italic; }
-        .game-subtitle { font-family: 'Teko', sans-serif; font-size: 1.2rem; color: #ff9900; letter-spacing: 0.6em; text-transform: uppercase; margin-top: 0.5rem; margin-bottom: 4rem; text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); }
+        
+        /* BẢNG HIỆU GAME */
+        .game-title { font-family: 'Bangers', cursive; font-size: clamp(3rem, 10vw, 6rem); line-height: 0.9; margin-bottom: 0; background: linear-gradient(to bottom, #fff 30%, #ff9900 60%, #ff4400 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(255, 153, 0, 0.4)); letter-spacing: -1px; font-style: italic; }
+        .game-subtitle { font-family: 'Teko', sans-serif; font-size: 1.2rem; color: #ff9900; letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.5rem; margin-bottom: 4rem; text-shadow: 0 0 10px rgba(255, 153, 0, 0.5); }
         
         .btn-fancy { background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); color: black; font-family: 'Teko'; font-weight: bold; text-transform: uppercase; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition: 0.3s; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(255, 85, 0, 0.4); border: none; outline: none; }
         .btn-fancy:hover { transform: scale(1.05) skewX(-2deg); box-shadow: 0 0 30px rgba(255, 85, 0, 0.7); filter: brightness(1.2); }
@@ -49,7 +51,7 @@
         .hero-info-card:hover { border-color: #ff9900; transform: translateY(-5px); }
         .lv-badge { position: absolute; top: 5px; right: 8px; font-size: 12px; color: #ff9900; font-family: 'Teko'; font-weight: bold; z-index: 10; }
 
-        /* HERO DETAILS MODAL UPGRADE */
+        /* CHI TIẾT NHÂN VẬT */
         #hero-details { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .details-container { background: #0c0c0c; border: 2px solid #333; border-radius: 20px; width: 100%; max-width: 500px; position: relative; box-shadow: 0 0 60px rgba(0, 0, 0, 0.8); overflow: hidden; display: flex; flex-direction: column; }
@@ -61,7 +63,6 @@
         .stat-label { font-family: 'Teko'; color: #666; text-transform: uppercase; font-size: 14px; }
         .stat-value { font-family: 'Oswald'; color: #ff9900; font-size: 18px; }
 
-        /* Skill list styling */
         .skill-section-title { font-family: 'Teko'; font-size: 18px; color: #ff9900; text-transform: uppercase; margin-bottom: 15px; border-left: 4px solid #ff9900; padding-left: 10px; letter-spacing: 1px; }
         .skill-item { display: flex; gap: 15px; background: #111; border: 1px solid #222; border-radius: 12px; padding: 12px; margin-bottom: 10px; transition: 0.2s; }
         .skill-item:hover { border-color: #444; background: #151515; }
@@ -104,7 +105,7 @@
 
 <div id="flash"></div>
 
-<!-- TURN COUNTER DISPLAY -->
+<!-- HIỂN THỊ LƯỢT ĐẤU -->
 <div id="turn-counter-display">
     <span class="turn-label">Lượt Đấu</span>
     <span id="turn-number">1</span>
@@ -116,53 +117,48 @@
     </div>
 </div>
 
-<!-- MAIN HOME -->
+<!-- TRANG CHỦ -->
 <div id="main-home" class="game-layer active-layer flex">
     <div class="menu-content">
-        <h1 class="game-title">SHINOBI</h1>
-        <div class="game-subtitle">LEGENDARY BATTLE</div>
+        <h1 class="game-title">NHẪN GIẢ TRUYỀN KỲ</h1>
+        <div class="game-subtitle">NHẪN GIẢ TRUYỀN KÌ: THE ETERNAL SAGA</div>
         <div class="flex flex-col gap-4 items-center">
             <div class="btn-fancy w-48 h-14 text-2xl shadow-xl" onclick="changeState('tactical')">BẮT ĐẦU</div>
-            <div class="btn-fancy w-48 h-14 text-2xl shadow-xl opacity-80" onclick="changeState('gallery')">KHO TƯỚNG</div>
+            <div class="btn-fancy w-48 h-14 text-2xl shadow-xl opacity-80" onclick="changeState('gallery')">NHÂN VẬT</div>
         </div>
     </div>
 </div>
 
-<!-- HERO GALLERY -->
+<!-- BỘ SƯU TẬP NHÂN VẬT -->
 <div id="hero-gallery" class="game-layer items-center justify-center">
     <div class="absolute top-4 right-4 text-orange-400 font-bold font-['Teko'] text-xl">BẠC: <span id="player-silver">5000</span></div>
-    <h2 class="text-4xl font-bold text-orange-500 mb-8 tracking-widest font-['Teko'] uppercase">Huyền Thoại Nhẫn Giả</h2>
+    <h2 class="text-4xl font-bold text-orange-500 mb-8 tracking-widest font-['Teko'] uppercase">Nhẫn Giả Huyền Thoại</h2>
     <div id="gallery-container" class="gallery-grid scrollbar-hide"></div>
     <div class="mt-8 btn-fancy w-40 h-12 text-xl" onclick="changeState('home')">QUAY LẠI</div>
 </div>
 
-<!-- HERO DETAILS MODAL (UPGRADED) -->
+<!-- CHI TIẾT NHÂN VẬT -->
 <div id="hero-details">
     <div class="details-container">
-        <!-- Header: Avatar & Name -->
         <div class="details-header-bg">
             <div id="detail-icon" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-orange-500 overflow-hidden flex items-center justify-center bg-black"></div>
-            <h2 id="detail-name" class="text-4xl font-bold font-['Teko'] uppercase tracking-wider text-white">Name</h2>
+            <h2 id="detail-name" class="text-4xl font-bold font-['Teko'] uppercase tracking-wider text-white">Tên</h2>
             <div id="detail-lv-text" class="text-orange-500 font-bold text-xl mb-1">CẤP 1</div>
             <p id="detail-info" class="text-white/40 text-[10px] font-bold tracking-[0.2em] uppercase"></p>
         </div>
 
-        <!-- Body: Stats & Skills -->
         <div class="details-body scrollbar-hide">
             <div class="stat-grid">
                 <div class="stat-row"><span class="stat-label">HP</span><span id="stat-hp" class="stat-value">0</span></div>
-                <div class="stat-row"><span class="stat-label">ATK</span><span id="stat-atk" class="stat-value">0</span></div>
-                <div class="stat-row"><span class="stat-label">DEF</span><span id="stat-def" class="stat-value">0</span></div>
-                <div class="stat-row"><span class="stat-label">SPD</span><span id="stat-spd" class="stat-value">0</span></div>
+                <div class="stat-row"><span class="stat-label">CÔNG</span><span id="stat-atk" class="stat-value">0</span></div>
+                <div class="stat-row"><span class="stat-label">THỦ</span><span id="stat-def" class="stat-value">0</span></div>
+                <div class="stat-row"><span class="stat-label">TỐC</span><span id="stat-spd" class="stat-value">0</span></div>
             </div>
 
-            <div class="skill-section-title">Kỹ năng nhẫn thuật</div>
-            <div id="skill-list" class="space-y-3">
-                <!-- Skill items will be injected here -->
-            </div>
+            <div class="skill-section-title">Nhẫn Thuật Kỹ Năng</div>
+            <div id="skill-list" class="space-y-3"></div>
         </div>
 
-        <!-- Footer: Actions -->
         <div class="p-5 border-t border-white/5 bg-black flex gap-4 justify-center">
             <div class="btn-fancy flex-1 h-12 flex flex-col" onclick="upgradeHero()">
                 <span class="text-lg leading-none">NÂNG CẤP</span>
@@ -173,11 +169,11 @@
     </div>
 </div>
 
-<!-- TACTICAL SCREEN -->
+<!-- CHIẾN THUẬT -->
 <div id="tactical-screen" class="game-layer py-4 px-4 flex flex-col items-center">
     <div class="absolute top-4 left-4"><div class="btn-fancy w-24 h-8 text-[12px]" onclick="changeState('home')">QUAY LẠI</div></div>
     <div class="w-full max-w-xs flex-1 flex flex-col items-center">
-        <div class="text-center mb-6"><h3 class="text-lg font-bold text-white tracking-widest uppercase mb-1">Thiết Lập Đội Hình</h3></div>
+        <div class="text-center mb-6"><h3 class="text-lg font-bold text-white tracking-widest uppercase mb-1">Đội Hình</h3></div>
         <div class="flex-1 flex items-center justify-center">
             <div class="formation-container">
                 <div>
@@ -203,7 +199,7 @@
     <div class="w-full mt-auto"><div id="unit-pool-container" class="w-full bg-white/5 backdrop-blur-sm p-2 border-t border-white/20 overflow-x-auto flex gap-2 scrollbar-hide"></div></div>
 </div>
 
-<!-- BATTLE UI -->
+<!-- GIAO DIỆN CHIẾN ĐẤU -->
 <div id="battle-ui" class="game-layer">
     <div id="battle-layer" class="relative w-full h-full"></div>
     <div class="absolute top-5 left-5 btn-fancy w-20 h-7 text-[10px]" onclick="stopBattleAndReturn()">RÚT LUI</div>
@@ -223,7 +219,6 @@
     let selectedHeroId = null;
     let currentFormation = [{ slot: 4, unitId: 'it1' }];
 
-    // Dữ liệu tướng với hệ thống 4 Skill và Avatar Skill
     const allHeroData = [
         { 
             id: 'n1', name: 'Naruto', skill: 'RASENGAN', color: 0xffaa00, hp: 1500, atk: 250, def: 180, spd: 120, lv: 1, skillColor: 0x44ccff, info: 'Cửu vĩ nhẫn giả', 
@@ -322,13 +317,11 @@
         allHeroData.forEach(hero => {
             const card = document.createElement('div');
             card.className = 'hero-info-card';
-            
             const avatarHtml = hero.avatar 
                 ? `<img src="${hero.avatar}" class="w-full h-full object-cover">`
                 : `<div class="w-full h-full" style="background: #${hero.color.toString(16).padStart(6,'0')}"></div>`;
-
             card.innerHTML = `
-                <div class="lv-badge">LV.${hero.lv}</div>
+                <div class="lv-badge">CẤP.${hero.lv}</div>
                 <div class="w-12 h-12 rounded-full mx-auto mb-3 shadow-lg overflow-hidden border-2 border-white">
                     ${avatarHtml}
                 </div>
@@ -344,44 +337,26 @@
     function showHeroDetails(hero) {
         selectedHeroInDetails = hero;
         const multiplier = 1 + (hero.lv - 1) * 0.15;
-        
-        // Cập nhật Header
         document.getElementById('detail-name').innerText = hero.name;
         document.getElementById('detail-lv-text').innerText = `CẤP ${hero.lv}`;
         document.getElementById('detail-info').innerText = hero.info;
-        
         const detailIcon = document.getElementById('detail-icon');
-        detailIcon.innerHTML = hero.avatar 
-            ? `<img src="${hero.avatar}" class="w-full h-full object-cover">`
-            : '';
+        detailIcon.innerHTML = hero.avatar ? `<img src="${hero.avatar}" class="w-full h-full object-cover">` : '';
         detailIcon.style.backgroundColor = hero.avatar ? 'transparent' : `#${hero.color.toString(16).padStart(6,'0')}`;
-
-        // Cập nhật Chỉ số
         document.getElementById('stat-hp').innerText = Math.floor(hero.hp * multiplier);
         document.getElementById('stat-atk').innerText = Math.floor(hero.atk * multiplier);
         document.getElementById('stat-def').innerText = Math.floor(hero.def * multiplier);
         document.getElementById('stat-spd').innerText = Math.floor(hero.spd * multiplier);
-        
-        // Cập nhật Danh sách kỹ năng
         const skillList = document.getElementById('skill-list');
         skillList.innerHTML = '';
-        if (hero.skills && hero.skills.length > 0) {
+        if (hero.skills) {
             hero.skills.forEach(skill => {
                 const item = document.createElement('div');
                 item.className = 'skill-item';
-                item.innerHTML = `
-                    <div class="skill-icon">
-                        <img src="${skill.icon}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100?text=Skill'">
-                    </div>
-                    <div class="skill-info">
-                        <div class="skill-name">${skill.name}</div>
-                        <div class="skill-desc">${skill.desc}</div>
-                    </div>
-                `;
+                item.innerHTML = `<div class="skill-icon"><img src="${skill.icon}" class="w-full h-full object-cover"></div><div class="skill-info"><div class="skill-name">${skill.name}</div><div class="skill-desc">${skill.desc}</div></div>`;
                 skillList.appendChild(item);
             });
         }
-
         document.getElementById('upgrade-cost').innerText = `${hero.lv * 1000} BẠC`;
         document.getElementById('hero-details').style.display = 'flex';
     }
@@ -407,23 +382,9 @@
             const inForm = currentFormation.some(f => f.unitId === u.id);
             const card = document.createElement('div');
             card.className = `unit-card ${selectedHeroId === u.id ? 'selected' : ''} ${inForm ? 'opacity-30' : ''}`;
-            
-            const avtPreview = u.avatar 
-                ? `<img src="${u.avatar}" class="w-full h-full object-cover">`
-                : `<div class="w-2.5 h-2.5 rounded-full" style="background: #${u.color.toString(16).padStart(6,'0')}44"></div>`;
-
-            card.innerHTML = `
-                <div class="w-6 h-6 rounded-full mb-1 flex items-center justify-center overflow-hidden border border-white/20" style="background: #${u.color.toString(16).padStart(6,'0')}44">
-                    ${avtPreview}
-                </div>
-                <div class="text-[8px] font-bold text-gray-200 uppercase">${u.name} LV.${u.lv}</div>
-            `;
-            card.onclick = () => { 
-                if(!inForm) {
-                    selectedHeroId = (selectedHeroId === u.id) ? null : u.id;
-                }
-                renderTacticalUI(); 
-            };
+            const avtPreview = u.avatar ? `<img src="${u.avatar}" class="w-full h-full object-cover">` : '';
+            card.innerHTML = `<div class="w-6 h-6 rounded-full mb-1 flex items-center justify-center overflow-hidden border border-white/20">${avtPreview}</div><div class="text-[8px] font-bold text-gray-200 uppercase">${u.name} CẤP.${u.lv}</div>`;
+            card.onclick = () => { if(!inForm) { selectedHeroId = (selectedHeroId === u.id) ? null : u.id; } renderTacticalUI(); };
             pool.appendChild(card);
         });
 
@@ -434,15 +395,11 @@
             slot.classList.toggle('occupied', !!item);
             if(item) {
                 const u = allHeroData.find(h => h.id === item.unitId);
-                const content = u.avatar 
-                    ? `<img src="${u.avatar}" class="w-full h-full object-cover">`
-                    : `<div class="w-2.5 h-2.5 rounded-[1px] border border-white/50" style="background: #${u.color.toString(16).padStart(6,'0')}"></div>`;
+                const content = u.avatar ? `<img src="${u.avatar}" class="w-full h-full object-cover">` : '';
                 slot.innerHTML = `<div class="relative w-full h-full flex items-center justify-center">${content}</div>`;
             }
             slot.onclick = () => {
-                if(item) {
-                    currentFormation = currentFormation.filter(f => f.slot !== pos);
-                }
+                if(item) currentFormation = currentFormation.filter(f => f.slot !== pos);
                 else if(selectedHeroId) {
                     currentFormation = currentFormation.filter(f => f.unitId !== selectedHeroId);
                     currentFormation.push({ slot: pos, unitId: selectedHeroId });
@@ -472,11 +429,7 @@
     function stopBattleAndReturn() {
         isCombatActive = false;
         camera.position.copy(originalCameraPos);
-        units.forEach(u => { 
-            scene.remove(u.group); 
-            if(u.bar) u.bar.remove(); 
-            u.dots.forEach(d => { if(d.mesh) scene.remove(d.mesh); });
-        });
+        units.forEach(u => { scene.remove(u.group); if(u.bar) u.bar.remove(); u.dots.forEach(d => { if(d.mesh) scene.remove(d.mesh); }); });
         units = [];
         skillMeshes.forEach(m => scene.remove(m));
         skillMeshes = [];
@@ -506,9 +459,7 @@
     function createChar(name) {
         const g = new THREE.Group();
         const skinColor = 0xffdbac;
-        let suitColor = 0x333333;
-        let hairColor = 0x000000;
-        let hairShape = 'spiky';
+        let suitColor = 0x333333, hairColor = 0x000000, hairShape = 'spiky';
         if(name === 'Naruto') { suitColor = 0xff6600; hairColor = 0xffdd00; }
         else if(name === 'Sasuke') { suitColor = 0x1a1a2e; hairColor = 0x000000; }
         else if(name === 'Kakashi') { suitColor = 0x4a5d4e; hairColor = 0xcccccc; hairShape = 'sideways'; }
@@ -534,8 +485,6 @@
         else if(hairShape === 'long') { const longHair = new THREE.Mesh(new THREE.BoxGeometry(20, 30, 8), mat(hairColor)); longHair.position.set(0, -10, -8); hairG.add(longHair); }
         else if(hairShape === 'sideways') { const side = new THREE.Mesh(new THREE.ConeGeometry(10, 20, 4), mat(hairColor)); side.rotation.z = Math.PI/3; side.position.set(-5, 5, 0); hairG.add(side); }
         g.add(hairG);
-        if(name === 'Itachi') { const clouds = new THREE.Mesh(new THREE.BoxGeometry(21, 33, 13), mat(0x000000)); clouds.position.y = 16; g.add(clouds); }
-        if(name === 'Madara') { const armor = new THREE.Mesh(new THREE.BoxGeometry(24, 25, 16), mat(0x990000)); armor.position.y = 20; g.add(armor); }
         return g;
     }
 
@@ -555,7 +504,6 @@
         while(isCombatActive) {
             document.getElementById('turn-number').innerText = battleTurnCount;
             let turnQueue = [...units].filter(u => u.cur > 0);
-            
             for(let u of turnQueue) {
                 if(!isCombatActive || u.cur <= 0) continue;
                 if(u.dots && u.dots.length > 0) {
@@ -565,7 +513,6 @@
                     });
                 }
                 if(u.cur <= 0) continue;
-
                 let target = null;
                 if(u.enemy) {
                     let allies = units.filter(t => !t.enemy && t.cur > 0);
@@ -575,37 +522,24 @@
                         let frontLine = allies.filter(a => Math.abs(a.group.position.x - maxX) < 10);
                         target = frontLine[Math.floor(Math.random() * frontLine.length)];
                     }
-                } else { 
-                    target = units.find(t => t.enemy && t.cur > 0); 
-                }
-
+                } else { target = units.find(t => t.enemy && t.cur > 0); }
                 if(!target) break;
                 if(u.mp >= 100) { await performUltimate(u, target); u.mp = 0; }
                 else { await performAttack(u, target); u.mp = Math.min(100, u.mp + 34); }
                 await new Promise(r => setTimeout(r, 600));
-                if(units.filter(u => !u.enemy && u.cur > 0).length === 0 || units.filter(u => u.enemy && u.cur > 0).length === 0) {
-                    isCombatActive = false;
-                    break;
-                }
+                if(units.filter(u => !u.enemy && u.cur > 0).length === 0 || units.filter(u => u.enemy && u.cur > 0).length === 0) { isCombatActive = false; break; }
             }
-
-            if(isCombatActive) {
-                battleTurnCount++;
-                await new Promise(r => setTimeout(r, 400));
-            }
+            if(isCombatActive) { battleTurnCount++; await new Promise(r => setTimeout(r, 400)); }
         }
     }
 
     async function performAttack(u, target) {
-        if(!u || !target) return;
         const start = u.group.position.clone();
         const hit = target.group.position.clone().add(new THREE.Vector3(u.enemy?80:-80, 0, 0));
         await tween(u.group.position, hit, 150, "easeIn");
         const dmg = (u.enemy ? 350 : (u.atk || 400));
         target.cur = Math.max(0, target.cur - dmg);
-        showDamage(target, dmg);
-        createVFX(target.group.position, 0xffffff, 8, 'spark');
-        screenShake(5, 100);
+        showDamage(target, dmg); createVFX(target.group.position, 0xffffff, 8, 'spark'); screenShake(5, 100);
         await tween(u.group.position, start, 200, "easeOut");
     }
 
@@ -615,21 +549,17 @@
         skillNameEl.innerText = u.skill;
         cinematic.style.display = 'flex';
         setTimeout(() => cinematic.classList.add('active-cinematic'), 50);
-
         let skillMesh;
         if(u.skill === 'RASENGAN') skillMesh = createAnimeRasengan();
         else if(u.skill === 'CHIDORI' || u.skill === 'LÔI THIẾT') skillMesh = createChidoriMesh();
         else if(u.skill === 'AMATERASU') skillMesh = createAmaterasuVFX(target.group.position);
         else skillMesh = new THREE.Mesh(new THREE.SphereGeometry(30), new THREE.MeshBasicMaterial({color: u.skillColor}));
-        
         if(u.skill !== 'AMATERASU' && u.group.userData.rightShoulder) { tweenRotation(u.group.userData.rightShoulder, { z: -Math.PI / 1.8, x: 0.2 }, 300, "elastic"); }
         if(u.skill !== 'AMATERASU') { skillMesh.position.copy(u.group.position).add(new THREE.Vector3(35, 30, 0)); scene.add(skillMesh); skillMeshes.push(skillMesh); }
-
         await new Promise(r => setTimeout(r, 1200));
         cinematic.classList.remove('active-cinematic');
         await new Promise(r => setTimeout(r, 400));
         cinematic.style.display = 'none';
-
         if(u.skill === 'AMATERASU') {
             scene.add(skillMesh); skillMeshes.push(skillMesh); skillMesh.scale.set(1.5, 1.5, 1.5); 
             const dmg = u.enemy ? 5000 : u.atk * 15;
@@ -639,28 +569,23 @@
             await tweenScale(skillMesh, new THREE.Vector3(0, 0, 0), 400, "easeIn");
             scene.remove(skillMesh); skillMeshes = skillMeshes.filter(m => m !== skillMesh);
             const miniFlame = createAmaterasuVFX(new THREE.Vector3(0,0,0)); miniFlame.scale.set(0.25, 0.25, 0.25); miniFlame.position.set(0, 20, 0);
-            target.group.add(miniFlame);
-            target.dots.push({ type: 'amaterasu', damage: 500, color: 0x000000, mesh: miniFlame });
+            target.group.add(miniFlame); target.dots.push({ type: 'amaterasu', damage: 500, color: 0x000000, mesh: miniFlame });
         } else {
             const startPos = u.group.position.clone();
             const targetPos = target.group.position.clone().add(new THREE.Vector3(u.enemy ? 100 : -100, 0, 0));
             const duration = 250; const startTime = Date.now();
             await new Promise(res => {
                 const loop = () => {
-                    const elapsed = Date.now() - startTime;
-                    const p = Math.min(1, elapsed / duration);
-                    const t = p * p * (3 - 2 * p);
-                    u.group.position.lerpVectors(startPos, targetPos, t);
+                    const elapsed = Date.now() - startTime; const p = Math.min(1, elapsed / duration);
+                    u.group.position.lerpVectors(startPos, targetPos, p * p * (3 - 2 * p));
                     if(skillMesh.position) skillMesh.position.copy(u.group.position).add(new THREE.Vector3(35, 30, 0));
                     if(p < 1 && isCombatActive) requestAnimationFrame(loop); else res();
                 }; loop();
             });
             const dmg = (u.enemy ? 800 : (u.atk * 10 || 4000));
             target.cur = Math.max(0, target.cur - dmg);
-            showDamage(target, dmg, "#44ccff");
-            createVFX(target.group.position, u.skillColor, 60, (u.skill === 'LÔI THIẾT' ? 'chidori' : u.skill || 'spark').toLowerCase());
-            screenShake(15, 300);
-            await new Promise(r => setTimeout(r, 300));
+            showDamage(target, dmg, "#44ccff"); createVFX(target.group.position, u.skillColor, 60, (u.skill === 'LÔI THIẾT' ? 'chidori' : u.skill || 'spark').toLowerCase());
+            screenShake(15, 300); await new Promise(r => setTimeout(r, 300));
             scene.remove(skillMesh); skillMeshes = skillMeshes.filter(m => m !== skillMesh);
             if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: 0, x: 0 }, 300, "easeOut");
             await tween(u.group.position, startPos, 300, "easeOut");
@@ -670,17 +595,10 @@
     function createAmaterasuVFX(targetPos) {
         const group = new THREE.Group(); group.position.copy(targetPos);
         for(let i=0; i<100; i++) {
-            const angle = (i/100) * Math.PI * 2; const radius = 40 + Math.random() * 35; const height = 150 + Math.random() * 100; const width = 8 + Math.random() * 8;
+            const angle = (i/100) * Math.PI * 2, radius = 40 + Math.random() * 35, height = 150 + Math.random() * 100, width = 8 + Math.random() * 8;
             const flame = new THREE.Mesh(new THREE.ConeGeometry(width, height, 3), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.95 }));
             flame.position.set(Math.cos(angle) * radius, height/2 - 85, Math.sin(angle) * radius);
-            flame.userData = { speed: 0.3 + Math.random() * 0.5, phase: Math.random() * Math.PI * 2, orbitSpeed: 0.04 + Math.random() * 0.08, radius: radius, height: height, baseY: height/2 - 85 };
-            group.add(flame);
-        }
-        for(let i=0; i<40; i++) {
-            const ember = new THREE.Mesh(new THREE.ConeGeometry(2, 25, 3), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.8 }));
-            ember.position.set((Math.random()-0.5)*130, Math.random()*200 - 85, (Math.random()-0.5)*130);
-            ember.userData = { driftX: (Math.random()-0.5) * 3, driftZ: (Math.random()-0.5) * 3, riseSpeed: 2 + Math.random() * 4 };
-            group.add(ember);
+            flame.userData = { orbitSpeed: 0.04 + Math.random() * 0.08, radius: radius }; group.add(flame);
         }
         group.userData.type = 'amaterasu_flames'; return group;
     }
@@ -690,7 +608,7 @@
         group.add(new THREE.Mesh(new THREE.SphereGeometry(24, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffffff })));
         group.add(new THREE.Mesh(new THREE.SphereGeometry(32, 32, 32), new THREE.MeshBasicMaterial({ color: 0x00f2ff, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending })));
         for(let i=0; i<100; i++) {
-            const radius = 35 + Math.random() * 12; const points = [];
+            const radius = 35 + Math.random() * 12, points = [];
             for(let j=0; j<=24; j++) { const angle = (j/24) * Math.PI * 2; points.push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius, 0)); }
             const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: 0xbbfaff, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending }));
             line.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
@@ -703,12 +621,8 @@
     function createChidoriMesh() {
         const group = new THREE.Group(); group.add(new THREE.Mesh(new THREE.SphereGeometry(18, 16, 16), new THREE.MeshBasicMaterial({color: 0xffffff})));
         for(let i=0; i<80; i++) {
-            const points = []; let currentPos = new THREE.Vector3(0,0,0); const randomLength = 100 + Math.random() * 150; const mainDir = new THREE.Vector3((Math.random()-0.5), (Math.random()-0.5), (Math.random()-0.5)).normalize();
-            for(let s=0; s<=8; s++) {
-                points.push(currentPos.clone());
-                const step = mainDir.clone().multiplyScalar(randomLength / 8); const jitter = (s === 0) ? 0 : 35;
-                currentPos.add(step).add(new THREE.Vector3((Math.random()-0.5)*jitter, (Math.random()-0.5)*jitter, (Math.random()-0.5)*jitter));
-            }
+            const points = []; let currentPos = new THREE.Vector3(0,0,0); const randomLength = 100 + Math.random() * 150, mainDir = new THREE.Vector3((Math.random()-0.5), (Math.random()-0.5), (Math.random()-0.5)).normalize();
+            for(let s=0; s<=8; s++) { points.push(currentPos.clone()); currentPos.add(mainDir.clone().multiplyScalar(randomLength / 8)).add(new THREE.Vector3((Math.random()-0.5)*35, (Math.random()-0.5)*35, (Math.random()-0.5)*35)); }
             const bolt = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), new THREE.LineBasicMaterial({ color: 0x88eaff, transparent: true, opacity: 0.8 }));
             bolt.userData = { originalPoints: points.map(p => p.clone()) }; group.add(bolt);
         }
@@ -717,8 +631,7 @@
 
     function createVFX(pos, color, count, type) {
         for(let i=0; i<count; i++) {
-            const s = (type === 'burn') ? 3 : 1.5;
-            const m = new THREE.Mesh(new THREE.SphereGeometry(s, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1 }));
+            const m = new THREE.Mesh(new THREE.SphereGeometry(type === 'burn' ? 3 : 1.5, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 1 }));
             m.position.copy(pos).add(new THREE.Vector3((Math.random()-0.5)*50, 20 + (Math.random()-0.5)*50, (Math.random()-0.5)*50));
             m.userData = { vel: new THREE.Vector3((Math.random()-0.5)*20, (Math.random()-0.5)*20, (Math.random()-0.5)*20), life: 1.0 };
             scene.add(m); particles.push(m);
@@ -776,7 +689,7 @@
 
     function tweenRotation(obj, target, ms, type) {
         return new Promise(res => {
-            const startX = obj.rotation.x, startZ = obj.rotation.z; const startTime = Date.now();
+            const startX = obj.rotation.x, startZ = obj.rotation.z, startTime = Date.now();
             const loop = () => {
                 const elapsed = Date.now() - startTime; let p = Math.min(1, elapsed / ms);
                 obj.rotation.x = startX + (target.x - startX) * p; obj.rotation.z = startZ + (target.z - startZ) * p;
@@ -793,9 +706,9 @@
             const allMeshes = [...skillMeshes];
             units.forEach(u => u.group.children.forEach(child => { if (child.userData && child.userData.type === 'amaterasu_flames') allMeshes.push(child); }));
             allMeshes.forEach(m => {
-                if(m.userData.type === 'anime_rasengan') { m.children.forEach(child => { if(child.userData.axis) child.rotateOnAxis(child.userData.axis, child.userData.speed); }); }
-                if(m.userData.type === 'chidori_detail') { m.children.forEach(child => { if(child instanceof THREE.Line) { const positions = child.geometry.attributes.position.array; const orig = child.userData.originalPoints; for(let i=1; i<orig.length; i++) { positions[i*3] = orig[i].x + (Math.random()-0.5)*35; positions[i*3+1] = orig[i].y + (Math.random()-0.5)*35; positions[i*3+2] = orig[i].z + (Math.random()-0.5)*35; } child.geometry.attributes.position.needsUpdate = true; } }); }
-                if(m.userData.type === 'amaterasu_flames') { m.children.forEach(child => { if(child.userData.speed) { const ud = child.userData; const currentAngle = time * ud.orbitSpeed * 10; child.position.x = Math.cos(currentAngle) * ud.radius; child.position.z = Math.sin(currentAngle) * ud.radius; } else if(child.userData.riseSpeed) { child.position.y += child.userData.riseSpeed; if(child.position.y > 350) child.position.y = -85; } }); }
+                if(m.userData.type === 'anime_rasengan') m.children.forEach(child => { if(child.userData.axis) child.rotateOnAxis(child.userData.axis, child.userData.speed); });
+                if(m.userData.type === 'chidori_detail') m.children.forEach(child => { if(child instanceof THREE.Line) { const positions = child.geometry.attributes.position.array, orig = child.userData.originalPoints; for(let i=1; i<orig.length; i++) { positions[i*3] = orig[i].x + (Math.random()-0.5)*35; positions[i*3+1] = orig[i].y + (Math.random()-0.5)*35; positions[i*3+2] = orig[i].z + (Math.random()-0.5)*35; } child.geometry.attributes.position.needsUpdate = true; } });
+                if(m.userData.type === 'amaterasu_flames') m.children.forEach(child => { if(child.userData.orbitSpeed) { const ud = child.userData, ang = time * ud.orbitSpeed * 10; child.position.x = Math.cos(ang) * ud.radius; child.position.z = Math.sin(ang) * ud.radius; } });
             });
             for(let i=particles.length-1; i>=0; i--) { let p = particles[i]; p.position.add(p.userData.vel); p.userData.life -= 0.02; p.scale.setScalar(p.userData.life); if (p.userData.life <= 0) { scene.remove(p); particles.splice(i, 1); } }
         }

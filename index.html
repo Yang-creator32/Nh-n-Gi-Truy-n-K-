@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hỏa Chí Vô Song</title>
@@ -107,7 +106,7 @@
         .unit-card.selected { border-color: #ffaa00; background: rgba(255,170,0,0.15); box-shadow: 0 0 12px rgba(255,170,0,0.4); }
 
         #battle-ui { 
-            background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/48db8cc8-bc54-4ac4-a791-ef75d6416986/ddo7jwl-e0115623-f5d6-4d8e-b2f5-c62edcb6877b.jpg/v1/fill/w_1024,h_577,q_75,strp/naruto_background_11_by_pungpp_ddo7jwl-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc3IiwicGF0aCI6Ii9mLzQ4ZGI4Y2M4LWJjNTQtNGFjNC1hNzkxLWVmNzVkNjQxNjk4Ni9kZG83andsLWUwMTE1NjIzLWY1ZDYtNGQ4ZS1iMmY1LWM2MmVkY2I2ODc3Yi5qcGciLCJ3aWR0aCI6Ijw9MT0yNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.sPcIhK12guV6C6vzrSA3YznlF9W-kBEN7wZr0M4K_dk');
+            background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/48db8cc8-bc54-4ac4-a791-ef75d6416986/ddo7jwl-e0115623-f5d6-4d8e-b2f5-c62edcb6877b.jpg/v1/fill/w_1024,h_577,q_75,strp/naruto_background_11_by_pungpp_ddo7jwl-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTc3IiwicGF0aCI6Ii9mLzQ4ZGI4Y2M4LWJjNTQtNGFjNC1hNzkxLWVmNzVkNjQxNjk4Ni9kZG83andsLWUwMTE1NjIzLWY1Z640D8E-B2F5-C62EDCB6877B.jpg/v1/fill/w_1024,h_577,q_75,strp/naruto_background_11_by_pungpp_ddo7jwl-fullview.jpg');
             background-size: cover;
             background-position: center;
             z-index: 10;
@@ -623,8 +622,10 @@
     async function performSpecialAttack(u, target) {
         if (u.name === 'Naruto') {
             await performNarutoSpecial(u, target);
-        } else if (u.name === 'Itachi') {
-            await performItachiFireball(u, target);
+        } else if (u.name === 'Itachi' || u.name === 'Sasuke') {
+            await performFireballSpecial(u, target);
+        } else if (u.name === 'Kakashi') {
+            await performKakashiSpecial(u, target);
         } else {
             let skillMesh;
             if(u.skill === 'CHIDORI' || u.skill === 'LÔI THIẾT') {
@@ -651,6 +652,68 @@
             if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: 0, x: 0 }, 250 / gameSpeedMultiplier, "easeOut");
             await tween(u.group.position, startPos, 400 / gameSpeedMultiplier, "easeOut");
         }
+    }
+
+    async function performKakashiSpecial(u, target) {
+        const startPos = u.group.position.clone();
+        
+        // Tạo Lôi Thiết bám vào Kakashi
+        const chidori = createChidoriMesh();
+        chidori.scale.set(0.7, 0.7, 0.7);
+        scene.add(chidori); skillMeshes.push(chidori);
+        playSound('chidori');
+
+        // Hàm cập nhật vị trí Lôi Thiết bám theo Kakashi
+        const updateSkillPos = () => {
+            if (chidori && u.group) {
+                chidori.position.copy(u.group.position).add(new THREE.Vector3(20, 25, 0));
+                // Tạo thêm tia lửa nhỏ dọc đường di chuyển
+                if (Math.random() > 0.3) createVFX(u.group.position, 0x00f2ff, 2, 'spark');
+            }
+        };
+
+        // Bắt đầu cập nhật liên tục
+        const skillInterval = setInterval(updateSkillPos, 16);
+
+        // 1. Di chuyển nhanh đến trước mặt địch
+        const frontOfEnemy = target.group.position.clone().add(new THREE.Vector3(-100, 0, 0));
+        await tween(u.group.position, frontOfEnemy, 250 / gameSpeedMultiplier, "easeOut");
+        
+        // 2. Nhảy lên cao
+        const highPos = frontOfEnemy.clone().add(new THREE.Vector3(0, 350, 0));
+        await tween(u.group.position, highPos, 300 / gameSpeedMultiplier, "easeOut");
+        
+        // 3. Rơi xuống theo hình dích dắc (sấm sét)
+        const targetPos = target.group.position.clone().add(new THREE.Vector3(-40, 0, 0));
+        const mid1 = highPos.clone().lerp(targetPos, 0.33).add(new THREE.Vector3(120, 0, 0));
+        const mid2 = highPos.clone().lerp(targetPos, 0.66).add(new THREE.Vector3(-120, 0, 0));
+        
+        const lightningSpeed = 70 / gameSpeedMultiplier;
+        await tween(u.group.position, mid1, lightningSpeed, "linear");
+        createVFX(u.group.position, 0x00f2ff, 15, 'spark');
+
+        await tween(u.group.position, mid2, lightningSpeed, "linear");
+        createVFX(u.group.position, 0x00f2ff, 15, 'spark');
+
+        // Lao thẳng xuống cắm đất
+        await tween(u.group.position, targetPos, lightningSpeed, "easeIn");
+        
+        // Ngừng cập nhật vị trí vì đã tới đích
+        clearInterval(skillInterval);
+        chidori.position.copy(targetPos).add(new THREE.Vector3(0, 25, 0));
+
+        // 4. Chạm đất, gây nổ sét
+        const dmg = Math.floor((u.atk || 400) * 2.8);
+        target.cur = Math.max(0, target.cur - dmg);
+        showDamage(target, dmg, "#00ffff");
+        createVFX(target.group.position, 0x00f2ff, 50, 'chidori');
+        screenShake(12, 400);
+
+        // Dọn dẹp skill và quay về vị trí ban đầu
+        scene.remove(chidori);
+        skillMeshes = skillMeshes.filter(m => m !== chidori);
+        await new Promise(r => setTimeout(r, 400 / gameSpeedMultiplier));
+        await tween(u.group.position, startPos, 500 / gameSpeedMultiplier, "easeOut");
     }
 
     async function performNarutoSpecial(u, target) {
@@ -690,7 +753,7 @@
         });
     }
 
-    async function performItachiFireball(u, target) {
+    async function performFireballSpecial(u, target) {
         if(u.group.userData.rightShoulder) tweenRotation(u.group.userData.rightShoulder, { z: -Math.PI/4, x: 0.5 }, 300 / gameSpeedMultiplier, "easeIn");
         await new Promise(r => setTimeout(r, 400 / gameSpeedMultiplier));
 
@@ -921,5 +984,3 @@
 </script>
 </body>
 </html>
-
-
